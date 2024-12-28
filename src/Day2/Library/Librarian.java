@@ -10,7 +10,6 @@ class Librarian {
 
     //Initialize the attributes
     Librarian(int id, String name, Library library){
-
         this.id = id;
         this.name = name;
         this.library = library;
@@ -19,7 +18,6 @@ class Librarian {
 
     //To add the books in the library
     public void addBook(Book book){
-
         library.addBook(book);
         System.out.println(book.getTitle() + " is added to the library.");
     }
@@ -27,16 +25,16 @@ class Librarian {
 
     //To remove the book from the library
     public void removeBook(Book book){
-
         library.removeBook(book);
         System.out.println(book.getTitle() + " is removed from the library.");
     }
 
+    //To add the user to the library
     public void addUser(User user){
         library.addUser(user);
     }
 
-
+    //To remove the user from the library
     public void removeUser(User user){
         library.removeUser(user);
     }
@@ -57,6 +55,7 @@ class Librarian {
         book.increaseCount();
     }
 
+    //To get the books from the library to the user
     public List<Book> showBooks(){
         return library.showBooks();
     }

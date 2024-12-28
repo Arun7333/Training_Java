@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class User {
+
     private int id;
     private String name;
     private String email;
@@ -39,7 +40,7 @@ abstract class User {
         borrowedBooks.remove(book);
     }
 
-
+    //To get the first book from the borrowed books list
     public Book getFirstBorrowedBook() throws noBooksBorrowed{
         if(!borrowedBooks.isEmpty()){
             return borrowedBooks.get(0);
@@ -47,17 +48,17 @@ abstract class User {
         else throw new noBooksBorrowed();
     }
 
-
+    //Return the role of the user
     public String getRole(){
         return role;
     }
 
-
+    //Get the list of the books available in the library
     public List<Book> getListOfBooks(){
         return librarian.showBooks();
     }
 
-
+    //show the borrowed books of the user
     public void showBorrowedBooks(){
 
         System.out.println("Borrowed books are:");

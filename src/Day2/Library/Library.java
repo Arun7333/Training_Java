@@ -6,37 +6,45 @@ import java.util.List;
 import java.util.Map;
 
 class Library {
+
     private Map<Integer, Book> inventory;
     private List<User> users;
     private Librarian librarian;
 
+    //Default constructor
     Library(){
         inventory = new HashMap<>();
         users = new ArrayList<>();
     }
 
+    //Parameterized constructor
     Library(Librarian librarian){
         inventory = new HashMap<>();
         this.librarian = librarian;
         users = new ArrayList<>();
     }
 
+    //Getter for Librarian
     public Librarian getLibrarian(){
         return librarian;
     }
 
+    //Setter for Librarian
     public void setLibrarian(Librarian librarian){
         this.librarian = librarian;
     }
 
+    //To add user in the library
     public void addUser(User user){
         users.add(user);
     }
 
+    //To remove the user from the library
     public void removeUser(User user){
         users.remove(user);
     }
 
+    //To return the books to the librarian
     public List<Book> showBooks(){
         return new ArrayList<>(inventory.values());
     }

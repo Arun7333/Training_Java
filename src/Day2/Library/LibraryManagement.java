@@ -5,6 +5,7 @@ import java.util.List;
 public class LibraryManagement {
     public static void main(String[] args) {
 
+        //Initializing objects
         Library library = new Library();
         Librarian librarian = new Librarian(01, "Muthu", library);
 
@@ -36,15 +37,16 @@ public class LibraryManagement {
             user1.borrowBook(books.get(i));
         }
 
-        System.out.println("Before Returning:");
-        user1.showBorrowedBooks();
 
         for(int i = books.size()/2; i < books.size(); i++){
             user2.borrowBook(books.get(i));
         }
 
+        System.out.println("Before Returning:");
+        user1.showBorrowedBooks();
         user2.showBorrowedBooks();
 
+        //return the books
         try {
             user1.returnBook(user1.getFirstBorrowedBook());
             user2.returnBook(user2.getFirstBorrowedBook());
