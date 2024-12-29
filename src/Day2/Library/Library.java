@@ -61,7 +61,7 @@ class Library {
 
     //To check a book is available in the library or not
     public boolean isAvailable(Book book){
-        return inventory.get(book.getId()).getCount() > 0;
+        return inventory.get(book.getId()) != null && inventory.get(book.getId()).getCount() > 0;
     }
 
 
