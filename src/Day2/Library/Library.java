@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Library {
+public class Library {
 
     private Map<Integer, Book> inventory;
     private List<User> users;
     private Librarian librarian;
 
     //Default constructor
-    Library(){
+    public Library(){
         inventory = new HashMap<>();
         users = new ArrayList<>();
     }

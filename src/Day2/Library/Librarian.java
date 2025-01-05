@@ -2,14 +2,14 @@ package Day2.Library;
 
 import java.util.List;
 
-class Librarian {
+public class Librarian {
 
     private int id;
     public String name;
     private Library library;
 
     //Initialize the attributes
-    Librarian(int id, String name, Library library){
+    public Librarian(int id, String name, Library library){
         this.id = id;
         this.name = name;
         this.library = library;
