@@ -2,6 +2,8 @@ package Day7.ObjectAndMethodLocking;
 
 public class TestLocking {
     public static void main(String[] args) {
+
+        //Example for Object locking
         SharedPrinter sharedPrinter = new SharedPrinter(10);
         int start = (int)System.currentTimeMillis();
 
@@ -35,6 +37,8 @@ public class TestLocking {
         int end = (int)System.currentTimeMillis();
         System.out.println("Time Taken in Object Locking: " + (end - start) + " ms");
 
+        //_______________________________________________________________________________________
+        
         //Example for Method locking
         Printer printer = new Printer(10);
         start = (int)System.currentTimeMillis();
