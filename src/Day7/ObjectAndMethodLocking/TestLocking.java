@@ -37,6 +37,8 @@ public class TestLocking {
         int end = (int)System.currentTimeMillis();
         System.out.println("Time Taken in Object Locking: " + (end - start) + " ms");
 
+        //_______________________________________________________________________________________
+        
         //Example for Method locking
         Printer printer = new Printer(10);
         start = (int)System.currentTimeMillis();
