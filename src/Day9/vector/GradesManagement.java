@@ -6,35 +6,49 @@ import java.util.Vector;
 public class GradesManagement {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Vector<Integer> grades = new Vector<>();
+        GradeManager gradeManager = new GradeManager();
 
         //Loop for insertion
         //to end the insertion give -1 as value
         int grade = scanner.nextInt();
         while(grade != -1){
-            grades.add(grade);
+            gradeManager.add(grade);
 
             grade = scanner.nextInt();
         }
 
         //Printing the grades
-        printGrades(grades);
+        gradeManager.printGrades();
 
         //highest, lowest and average
-        System.out.println("HighestGrade: " + highestGrade(grades));
-        System.out.println("LowestGrade: " + lowestGrade(grades));
-        System.out.println("AverageGrade: " + averageGrade(grades));
+        System.out.println("HighestGrade: " + gradeManager.highestGrade());
+        System.out.println("LowestGrade: " + gradeManager.lowestGrade());
+        System.out.println("AverageGrade: " + gradeManager.averageGrade());
 
         //Remove an element
         int indexOfRemoval = scanner.nextInt();
-        remove(grades, indexOfRemoval);
+        gradeManager.remove(indexOfRemoval);
     }
 
-    public static void printGrades(Vector<Integer> grades){
+
+}
+
+class GradeManager{
+    Vector<Integer> grades;
+
+    GradeManager(){
+        grades = new Vector<>();
+    }
+
+    public void add(int grade){
+        grades.add(grade);
+    }
+
+    public void printGrades(){
         System.out.println(grades);
     }
 
-    public static void remove(Vector<Integer> grades, int indexOfRemoval){
+    public void remove(int indexOfRemoval){
         if(grades.size() > indexOfRemoval){
             grades.remove(indexOfRemoval);
             System.out.println("Removed");
@@ -44,15 +58,15 @@ public class GradesManagement {
         }
     }
 
-    public static int highestGrade(Vector<Integer> grades){
+    public int highestGrade(){
         return grades.stream().max((a, b) -> a - b).orElse(0);
     }
 
-    public static int lowestGrade(Vector<Integer> grades){
+    public int lowestGrade(){
         return grades.stream().min((a, b) -> a - b).orElse(0);
     }
 
-    public static int averageGrade(Vector<Integer> grades){
+    public int averageGrade(){
         return grades.stream().reduce((a, b) -> a + b).orElse(0) / grades.size();
     }
 }
