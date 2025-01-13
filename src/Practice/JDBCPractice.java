@@ -1,101 +1,113 @@
 package Practice;
 
 import java.sql.*;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class JDBCPractice {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
-        //create object for JDBC class for doing operations
-        JDBC jdbc = new JDBC("jdbc:mysql://localhost:3306/testing", "root", "Arun@7339");
-        jdbc.connect();
-
-
-        //Insert values into the student table
-        int n = scanner.nextInt();
-        for(int i = 0; i < n; i++) {
-            String name = scanner.next();
-            String subject = scanner.next();
-            int mark = scanner.nextInt();
-
-            String insertQuery = "INSERT INTO students (name, subject, marks) VALUES ('" + name + "', '" + subject + "', " + mark + ");";
-
-            if(jdbc.executeUpdate(insertQuery) > 0){
-                System.out.println("inserted : " + i + 1);
-            }
-        }
-
-
-        //Get values from the table using select
-        String getQuery = "SELECT * from students";
-        ResultSet resultSet = jdbc.executeQuery(getQuery);
-
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            String subject = resultSet.getString("subject");
-            int marks = resultSet.getInt("marks");
-
-            System.out.printf("ID: %d, Name: %s, Subject: %s, Marks: %d%n", id, name, subject, marks);
-        }
     }
 }
 
-class JDBC{
+class Server{
     private String url;
     private String username;
     private String password;
-    private Connection connection;
-    private Statement statement;
+    private Map<String, Connection> databases;
+    private Connection currConn;
+    private Pattern selectPattern = Pattern.compile("(?i)^\\s*select\\b");
 
-    JDBC(String url, String username, String password){
+    public Server(String url, String username, String password){
         this.url = url;
-        this.password = password;
         this.username = username;
-        loadDriver();
+        this.password = password;
     }
 
-    private void loadDriver(){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (Exception e){ e.printStackTrace(); }
-    }
-
-    public void connect(){
-        if(connection == null){
-            try {
-                this.connection = DriverManager.getConnection(url, username, password);
-                System.out.println("connected");
+    public void connectDB(String dbName){
+        if(!databases.containsKey(dbName)){
+            try{
+                Connection newConnection = DriverManager.getConnection(url + "/" + dbName, username, password);
+                databases.put(dbName, newConnection);
+                System.out.println(dbName + " is connected.");
             }
-            catch (Exception e) { e.printStackTrace(); }
+            catch (Exception e){ e.printStackTrace(); }
         }
     }
 
-    public int executeUpdate(String sqlStatement) {
-        int count = 0;
-        try {
-            Statement statement = connection.createStatement();
-            count = statement.executeUpdate(sqlStatement);
-            System.out.println("executed");
+    public void setConnection(String dbName){
+        if(databases.containsKey(dbName)){
+            this.currConn = databases.get(dbName);
+            System.out.println("current connection is set to" + dbName);
         }
-        catch (Exception e) { e.printStackTrace(); }
+        else{
+            System.out.println("There is no DB called " + dbName + " is available!");
+            System.out.println("First create the connection using connectDB and then set.");
+        }
+    }
+
+    public void closeConnection(String dbName){
+        if(databases.containsKey(dbName)){
+            try {
+                databases.get(dbName).close();
+                databases.remove(dbName);
+                System.out.println(dbName + " is closed.");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public int executeUpdate(String query){
+        int count = 0;
+
+        if(selectPattern.matcher(query).matches()){
+            System.out.println("Error: use executeQuery for this query.");
+        }
+        else{
+            try(Statement statement = currConn.createStatement()){
+                count = statement.executeUpdate(query);
+
+            }
+            catch (Exception e){ e.printStackTrace(); }
+        }
 
         return count;
     }
 
-    public ResultSet executeQuery(String sqlStatement){
-        ResultSet set = null;
-        try {
-            Statement statement = connection.createStatement();
-            set = statement.executeQuery(sqlStatement);
-            System.out.println("executed");
+    public ResultSet executeQuery(String query){
+        ResultSet resultSet = null;
+        if(!selectPattern.matcher(query).matches()){
+            System.out.println("Error: use executeUpdate for this query.");
         }
-        catch (Exception e) { e.printStackTrace(); }
+        else{
+            try(Statement statement = currConn.createStatement()){
+                resultSet = statement.executeQuery(query);
+            }
+            catch (Exception e){ e.printStackTrace(); }
+        }
 
-        return set;
+        return resultSet;
     }
 
+    public void closeAll(){
+        try{
+            Iterator<Map.Entry<String, Connection>> iterator = databases.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, Connection> entry = iterator.next();
 
+                entry.getValue().close();
+                iterator.remove();
+            }
+
+            System.out.println("All connections are closed.");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
