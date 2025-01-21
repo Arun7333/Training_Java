@@ -17,6 +17,10 @@ public class Student {
         return name;
     }
 
+    public void addScore(int val){
+        score += val;
+    }
+
     public int getScore(){
         return score;
     }
