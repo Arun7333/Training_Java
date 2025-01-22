@@ -53,6 +53,6 @@ public class CheckAnnotationProcessor extends AbstractProcessor {
                 }
             }
 
-        return true; // No further processing of this annotation
+        return true;
     }
 }
