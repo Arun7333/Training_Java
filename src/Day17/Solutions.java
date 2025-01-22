@@ -48,7 +48,7 @@ public class Solutions {
 
         //Task-6 -> Optional to provide a default value of "Guest" when no name is provided
         Optional<String> name = Optional.ofNullable(null);
-        System.out.println(name.orElse("Default name"));
+        System.out.println(name.orElse("Guest"));
         System.out.println("________________________");
 
 
