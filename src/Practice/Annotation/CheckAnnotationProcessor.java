@@ -16,6 +16,7 @@ import java.lang.annotation.Annotation;
 import java.util.Set;
 
 @SupportedAnnotationTypes("Practice.Annotation.Check")
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class CheckAnnotationProcessor extends AbstractProcessor {
     private Messager messager;
     private Filer filer;
