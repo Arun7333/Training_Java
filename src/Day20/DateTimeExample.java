@@ -11,7 +11,7 @@ public class DateTimeExample {
         handler.addEvent(new Event(
                 "Brushing",
                 LocalDateTime.of(LocalDate.of(2025, 01, 29), LocalTime.of(6, 0)),
-                Duration.ofMinutes(10)
+                Duration.ofMinutes(10)  
         ));
         handler.addEvent(new Event(
                 "Get Ready to College",
