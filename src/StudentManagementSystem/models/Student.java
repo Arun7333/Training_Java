@@ -2,7 +2,11 @@ package StudentManagementSystem.models;
 
 import StudentManagementSystem.exceptions.GradeMisMatchException;
 
-public class Student extends Person {
+import java.io.Serializable;
+
+import static java.lang.System.out;
+
+public class Student extends Person implements Serializable {
     private int id;
     private char grade;
 
@@ -30,6 +34,12 @@ public class Student extends Person {
             throw new GradeMisMatchException();
         }
         this.grade = grade;
+    }
+
+    @Override
+    public String toString(){
+        return new String("Id: " + id + ", Name: " + name + ", Age: " + age
+                + ", Email: " + email + ", Grade: " + grade);
     }
 
 }

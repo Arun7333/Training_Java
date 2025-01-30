@@ -9,7 +9,7 @@ public class Pair <S, T>{
     private S key;
     private T value;
 
-    Pair(S key, T value){
+    public Pair(S key, T value){
         this.key = key;
         this.value = value;
     }

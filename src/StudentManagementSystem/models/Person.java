@@ -5,12 +5,14 @@ import StudentManagementSystem.exceptions.InvalidEmailException;
 import StudentManagementSystem.exceptions.InvalidNameException;
 import StudentManagementSystem.utility.Patterns;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
+import static java.lang.System.out;
 
-public class Person {
-    private String name;
-    private int age;
-    private String email;
+public class Person implements Serializable {
+    protected String name;
+    protected int age;
+    protected String email;
 
     public Person(String name, int age, String email){
         setName(name);
@@ -19,9 +21,13 @@ public class Person {
     }
 
     public void setName(String name){
-        name = name.trim();
+        //null check
+        if(name == null){
+            throw new InvalidNameException("Name should not be null value!");
+        }
 
         //Name should not be empty
+        name = name.trim();
         if(name.isEmpty()){
             throw new InvalidNameException("Name should not be empty!");
         }
@@ -50,9 +56,13 @@ public class Person {
     }
 
     public void setEmail(String email){
-        email = email.trim();
+        //null check
+        if(name == null){
+            throw new InvalidEmailException("Email should not be null value!");
+        }
 
         //Email should not be empty
+        email = email.trim();
         if(email.isEmpty()){
             throw new InvalidEmailException("Email should not be empty!");
         }
@@ -76,5 +86,11 @@ public class Person {
 
     public String getEmail(){
         return email;
+    }
+
+    @Override
+    public String toString(){
+        return new String("Name: " + name + ", Age: " + age
+                + ", Email: " + email);
     }
 }
