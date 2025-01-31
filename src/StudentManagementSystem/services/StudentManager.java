@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.stream.Stream;
@@ -37,8 +38,8 @@ public class StudentManager implements Manager<Student> {
     public StudentManager(){
         students = new ConcurrentHashMap<>();
         comparatorMap = Map.of(
-                "name", (u, v) -> u.getName().compareTo(v.getName()),
-                "email", (u, v) -> u.getEmail().compareTo(v.getEmail()),
+                "name", (u, v) -> u.getName().compareToIgnoreCase(v.getName()),
+                "email", (u, v) -> u.getEmail().compareToIgnoreCase(v.getEmail()),
                 "grade", (u, v) -> u.getGrade() - v.getGrade(),
                 "age", (u, v) -> u.getAge() - v.getAge(),
                 "id", (u, v) -> u.getId() - v.getId() // Default if field is invalid
@@ -200,8 +201,26 @@ public class StudentManager implements Manager<Student> {
                 .forEach(out::println);
     }
 
+    public void filterByField(String field, int key){
+        Predicate<Student> filterFunc;
+
+        //setting the filter function dynamically
+        if(field.equals("grade")){
+            filterFunc = student -> student.getGrade() == key;
+        }
+        else{
+            filterFunc = student -> student.getAge() == key;
+        }
+
+        out.println("~~~~Students after filtered~~~~");
+        students.values().stream()
+                .map(Pair::getKey)
+                .filter(filterFunc)
+                .forEach(out::println);
+    }
+
     public int generateId(){
-        int randomID = 1;
+        int randomID = idGenerator.nextInt(1000);
         while(students.containsKey(randomID)){
             randomID = idGenerator.nextInt(1000);
         }
@@ -254,11 +273,14 @@ public class StudentManager implements Manager<Student> {
 
         //getting the file object from the pair and write the object to it
         File newFile = getFile(id).orElse(new File(id + ".txt"));
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(newFile))){
-            oos.writeObject(student.get());
-        }
-        catch (IOException e){
-            throw new IOException("Can't write into a file");
+
+        //only one thread can write to the file at a time
+        synchronized (newFile) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(newFile))) {
+                oos.writeObject(student.get());
+            } catch (IOException e) {
+                throw new IOException("Can't write into a file");
+            }
         }
     }
 
@@ -305,7 +327,7 @@ public class StudentManager implements Manager<Student> {
 
         File directory = new File(directoryPath);
         //checking the directory existence
-        if(!directory.exists()){
+        if(!directory.exists() || !directory.isDirectory()){
             throw new PathInvalidException("There is no directory called " + directoryPath + " is available!");
         }
 

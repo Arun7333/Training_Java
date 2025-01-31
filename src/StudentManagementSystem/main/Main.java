@@ -19,6 +19,7 @@ public class Main{
             {"Read from a directory", "readDir"},
             {"Show All Students", "showAll"},
             {"Sort Students", "sort"},
+            {"Filter Students", "filter"},
             {"Exit", "exit"}
     };
     public static StudentManager manager = new StudentManager();
@@ -90,7 +91,7 @@ public class Main{
                     out.println("_____________________________________");
                     break;
                 case "filter":
-                    //filter by field
+                    filter();
                     out.println("_____________________________________");
                     break;
                 case "exit":
@@ -162,7 +163,7 @@ public class Main{
 
         out.println("\nNote ::: Syntax for update command is: " +
                 "(Field to be updated in lowercase) (Value to be updated) " +
-                "For eg: name Arun\n" +
+                "For eg: \"name Arun\"\n" +
                 "Enter \"back\" to go back home..."
         );
 
@@ -267,9 +268,32 @@ public class Main{
         String field;
 
         out.print("Enter the field name used for sorting in lowercase(ForEg : name) : ");
-        field = in.nextLine().trim();
+        field = in.nextLine().trim().toLowerCase();
 
         manager.sortByField(field);
+    }
+
+    public static void filter(){
+        String field;
+
+        out.print("Enter the field name used for filtering in lowercase(ForEg : name) : ");
+        field = in.nextLine().trim().toLowerCase();
+
+        switch (field){
+            case "grade":
+                out.print("Enter the grade you want to filter: ");
+                char grade = in.nextLine().charAt(0);
+                manager.filterByField(field, grade);
+                break;
+            case "age":
+                out.print("Enter the age you want to filter: ");
+                int age = in.nextInt();
+                in.nextLine();
+                manager.filterByField(field, age);
+                break;
+            default:
+                out.println("Invalid field (or) the field you given is always unique, Try again!");
+        }
     }
 
     public static void load(int n, String message){
