@@ -129,7 +129,11 @@ public class Main{
             out.println("~~Student successfully created~~");
         }
         catch (Exception e){
-            out.println(e.getMessage());
+            if(e.getClass() == InputMismatchException.class){
+                out.println("Caught: InputMismatchException");
+                in.nextLine();
+            }
+            else out.println("Caught: " + e.getMessage());
         }
     }
 
@@ -230,7 +234,7 @@ public class Main{
             });
         }
         catch (Exception e){
-            out.println(e.getMessage());
+            out.println("Caught: " + e.getMessage());
         }
     }
 
@@ -245,7 +249,7 @@ public class Main{
             out.println("~~Successfully read from the file " + filePath + " ~~");
         }
         catch(Exception e){
-            out.println(e.getMessage());
+            out.println("Caught: " +e.getMessage());
         }
     }
 
@@ -260,7 +264,7 @@ public class Main{
             out.println("~~Successfully read all the text files from the directory " + directoryPath + " ~~");
         }
         catch(Exception e){
-            out.println(e.getMessage());
+            out.println("Caught: " + e.getMessage());
         }
     }
 

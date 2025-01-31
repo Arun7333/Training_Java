@@ -1,6 +1,6 @@
 package StudentManagementSystem.services;
 
-import Day5.Generics.GenericClass.Pair;
+import StudentManagementSystem.models.Pair;
 import StudentManagementSystem.exceptions.IdAlreadyAvailableException;
 import StudentManagementSystem.exceptions.NoObjectAvailableException;
 import StudentManagementSystem.exceptions.PathInvalidException;
@@ -14,16 +14,11 @@ import java.io.*;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 import java.util.regex.Matcher;
-import java.util.stream.Stream;
 
 import static java.lang.System.out;
 
@@ -304,6 +299,8 @@ public class StudentManager implements Manager<Student> {
 
         //reading the file object and add it to the map
         File file = new File(fileName);
+        if(!file.exists()) throw new FileNotFoundException("File not found!");
+
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
 
             Optional<Student> student = Optional.ofNullable((Student)ois.readObject());
