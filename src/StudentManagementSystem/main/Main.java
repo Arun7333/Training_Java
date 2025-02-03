@@ -51,7 +51,7 @@ public class Main{
         }
 
 
-        //_________
+        //operations
         String option = "";
         while(true){
             out.print("Enter the command: ");
@@ -137,6 +137,7 @@ public class Main{
         }
     }
 
+    //Function for managing the delete operation
     public static void deleteStudent(){
         int id;
 
@@ -152,6 +153,8 @@ public class Main{
         }
     }
 
+
+    //Function for managing the update operations
     public static void updateStudent(){
         int id;
 
@@ -220,6 +223,8 @@ public class Main{
         }
     }
 
+
+    //Function for managing the getting the student operation
     public static void getStudent(){
         int id;
 
@@ -238,6 +243,8 @@ public class Main{
         }
     }
 
+
+    //Function for managing the reading from a File operation
     public static void readFile(){
         String filePath;
 
@@ -253,6 +260,8 @@ public class Main{
         }
     }
 
+
+    //Function for managing the read from the Directory operation
     public static void readDirectory(){
         String directoryPath;
 
@@ -268,6 +277,8 @@ public class Main{
         }
     }
 
+
+    //Function for managing the sorting operation
     public static void sort(){
         String field;
 
@@ -277,6 +288,8 @@ public class Main{
         manager.sortByField(field);
     }
 
+
+    //Function for managing the filtering operation
     public static void filter(){
         String field;
 
@@ -300,6 +313,8 @@ public class Main{
         }
     }
 
+
+    //Function for managing the loading operation
     public static void load(int n, String message){
         out.print(message);
         for (int i = 0; i < n; i++) {

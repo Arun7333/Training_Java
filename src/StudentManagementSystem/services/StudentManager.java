@@ -24,7 +24,8 @@ import static java.lang.System.out;
 
 public class StudentManager implements Manager<Student> {
 
-    //Using pair of Student and File object to reduce creating File object every time while writing the changes
+    //Using a Pair of Student and File object
+    //To reduce creating File object every time while writing the changes
     private Map<Integer, Pair<Student, File>> students;
     private Map<String, Comparator<Student>> comparatorMap;
     private File directory;

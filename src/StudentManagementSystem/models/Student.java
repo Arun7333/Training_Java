@@ -4,8 +4,6 @@ import StudentManagementSystem.exceptions.GradeMisMatchException;
 
 import java.io.Serializable;
 
-import static java.lang.System.out;
-
 public class Student extends Person implements Serializable {
     private int id;
     private char grade;
@@ -38,8 +36,8 @@ public class Student extends Person implements Serializable {
 
     @Override
     public String toString(){
-        return new String("Id: " + id + ", Name: " + name + ", Age: " + age
-                + ", Email: " + email + ", Grade: " + grade);
+        return "Id: " + id + ", Name: " + name + ", Age: " + age
+                + ", Email: " + email + ", Grade: " + grade;
     }
 
 }

@@ -7,7 +7,6 @@ import StudentManagementSystem.utility.Patterns;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
-import static java.lang.System.out;
 
 public class Person implements Serializable {
     protected String name;
@@ -90,7 +89,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString(){
-        return new String("Name: " + name + ", Age: " + age
-                + ", Email: " + email);
+        return "Name: " + name + ", Age: " + age
+                + ", Email: " + email;
     }
 }
