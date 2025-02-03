@@ -1,16 +1,15 @@
-package StudentManagementSystem.ui;
+package StudentManagementSystem.ui.components;
 
 import StudentManagementSystem.models.Student;
-import StudentManagementSystem.utility.Patterns;
+import StudentManagementSystem.ui.models.Form;
+import StudentManagementSystem.ui.main.GUI;
+import StudentManagementSystem.ui.utils.Validation;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.Vector;
-import java.util.regex.Matcher;
-
-import static java.lang.System.out;
 
 public class CreateDialog {
     private JDialog createDialog;

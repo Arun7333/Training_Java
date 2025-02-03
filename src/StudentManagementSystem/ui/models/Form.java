@@ -1,4 +1,4 @@
-package StudentManagementSystem.ui;
+package StudentManagementSystem.ui.models;
 
 public class Form {
     public String name;

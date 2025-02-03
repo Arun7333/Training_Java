@@ -1,15 +1,14 @@
-package StudentManagementSystem.ui;
+package StudentManagementSystem.ui.utils;
 
+import StudentManagementSystem.ui.main.GUI;
 import StudentManagementSystem.utility.Patterns;
 
-import java.awt.*;
 import java.util.regex.Matcher;
 
 public class Validation {
 
     public static boolean isName(String name){
         Matcher nameMatcher = Patterns.namePattern.matcher(name);
-
         return nameMatcher.matches();
     }
 
@@ -19,7 +18,6 @@ public class Validation {
 
     public static boolean isEmail(String email){
         Matcher emailMatcher = Patterns.emailPattern.matcher(email);
-
         return emailMatcher.matches();
     }
 
@@ -34,7 +32,6 @@ public class Validation {
                 }
             }
         }
-
         return flag;
     }
 }

@@ -1,4 +1,4 @@
-package StudentManagementSystem.ui;
+package StudentManagementSystem.ui.main;
 
 import StudentManagementSystem.services.StudentManager;
 

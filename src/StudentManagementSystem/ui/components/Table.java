@@ -1,4 +1,7 @@
-package StudentManagementSystem.ui;
+package StudentManagementSystem.ui.components;
+
+import StudentManagementSystem.ui.main.GUI;
+import StudentManagementSystem.ui.utils.Validation;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

@@ -1,6 +1,8 @@
-package StudentManagementSystem.ui;
+package StudentManagementSystem.ui.main;
 
 import StudentManagementSystem.services.StudentManager;
+import StudentManagementSystem.ui.components.CreateDialog;
+import StudentManagementSystem.ui.components.Table;
 
 import javax.swing.*;
 import java.awt.*;
