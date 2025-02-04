@@ -3,7 +3,7 @@ package StudentManagementSystem.ui.components;
 import StudentManagementSystem.models.Student;
 import StudentManagementSystem.ui.models.Form;
 import StudentManagementSystem.ui.main.GUI;
-import StudentManagementSystem.ui.utils.Validation;
+import StudentManagementSystem.ui.helpers.Validation;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -15,7 +15,7 @@ public class CreateDialog {
     private JDialog createDialog;
     private GUI gui;
 
-    CreateDialog(GUI gui){
+    public CreateDialog(GUI gui){
         this.gui = gui;
     }
 
@@ -68,14 +68,14 @@ public class CreateDialog {
                     form.name = name;
                     form.validity[0] = true;
 
-                    status.setText("valid");
+                    status.setText("valid name");
                     status.setForeground(Color.GREEN);
                 }
                 else{
                     form.name = "";
                     form.validity[0] = false;
 
-                    status.setText("invalid");
+                    status.setText("invalid name");
                     status.setForeground(Color.RED);
                 }
 
@@ -124,7 +124,6 @@ public class CreateDialog {
         constraints.anchor = GridBagConstraints.LINE_END;
         panel.add(inputPanel, constraints);
     }
-
 
     public void setEmailField(JPanel panel, GridBagConstraints constraints, Form form){
         JLabel emailLabel = new JLabel("Enter the Email");

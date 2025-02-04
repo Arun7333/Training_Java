@@ -1,4 +1,4 @@
-package StudentManagementSystem.ui.utils;
+package StudentManagementSystem.ui.helpers;
 
 import StudentManagementSystem.ui.main.GUI;
 import StudentManagementSystem.utility.Patterns;

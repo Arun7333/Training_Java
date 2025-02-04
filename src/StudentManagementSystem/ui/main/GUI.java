@@ -36,6 +36,7 @@ public class GUI {
         window.setTitle("Student Management System");
         window.setSize(900, 800);
         window.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
