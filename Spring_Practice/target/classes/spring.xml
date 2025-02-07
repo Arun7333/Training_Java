@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+<!--    <context:annotation-config />-->
+<!--    <context:component-scan base-package="org.xml_based"/>-->
+
+    <context:property-placeholder location="classpath:price.properties"/>
+
+    <bean id="car" class="org.xml_based.Car" scope="prototype" >
+        <constructor-arg  type="int" value="1"/>
+        <constructor-arg ref="twostrokes"/>
+        <constructor-arg type="java.lang.String" value="Bugatti"/>
+    </bean>
+
+    <bean id="bike" class="org.xml_based.Bike" >
+        <property name="engine" ref="fourstrokes"/>
+    </bean>
+
+    <bean id="twostrokes" class="org.xml_based.TwoStrokes"> </bean>
+
+    <bean id="fourstrokes" class="org.xml_based.FourStrokes"> </bean>
+
+    <bean id="main" class="org.xml_based.Main">
+        <constructor-arg ref="car"/>
+        <constructor-arg ref="bike"/>
+    </bean>
+
+    <bean id="object" class="org.xml_based.Object_Factory" factory-method="getObject">
+        <constructor-arg value="new Object"/>
+    </bean>
+
+</beans>
