@@ -27,12 +27,16 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
-        Main main = (Main)context.getBean("main");
-        main.startCar();
-        main.bike.start();
+//        Main main = (Main)context.getBean("main");
+//        main.startCar();
+//        main.bike.start();
+//
+//        Object obj = (Object)context.getBean("object");
+//        System.out.println(obj.getName());
 
-        Object obj = (Object)context.getBean("object");
-        System.out.println(obj.getName());
+
+        System.out.println(context.getBean("car2"));
+        System.out.println(context.getBean("getField"));
     }
 
     public void startCar(){

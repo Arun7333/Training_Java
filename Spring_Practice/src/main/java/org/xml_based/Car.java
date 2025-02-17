@@ -2,15 +2,13 @@ package org.xml_based;
 
 import org.models.Engine;
 import org.models.Vehicle;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+
 
 
 public class Car implements Vehicle {
     private Engine engine;
     private String name;
-    private int id;
+    public int id;
 
     Car(Engine engine, String name, int id){
         this.engine = engine;
@@ -28,6 +26,10 @@ public class Car implements Vehicle {
 
     public void setEngine(Engine engine){
         this.engine = engine;
+    }
+
+    public static Integer getId(){
+        return 100;
     }
 
     @Override

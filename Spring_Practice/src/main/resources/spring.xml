@@ -13,9 +13,9 @@
 <!--    <context:annotation-config />-->
 <!--    <context:component-scan base-package="org.xml_based"/>-->
 
-    <context:property-placeholder location="classpath:price.properties"/>
+<!--    <context:property-placeholder location="classpath:price.properties"/>-->
 
-    <bean id="car" class="org.xml_based.Car" scope="prototype" >
+    <bean id="car" class="org.xml_based.Car">
         <constructor-arg  type="int" value="1"/>
         <constructor-arg ref="twostrokes"/>
         <constructor-arg type="java.lang.String" value="Bugatti"/>
@@ -32,6 +32,25 @@
     <bean id="main" class="org.xml_based.Main">
         <constructor-arg ref="car"/>
         <constructor-arg ref="bike"/>
+    </bean>
+
+    <bean id="car2" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" >
+            <value>org.xml_based.Car</value>
+        </property>
+        <property name="targetMethod">
+            <value>getId</value>
+        </property>
+    </bean>
+
+    <bean id="getField" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="targetObject" ref="car"/>
+        <property name="targetField" value="id"/>
+    </bean>
+
+    <bean id="piValue" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="targetClass" value="java.lang.Math"/>
+        <property name="targetField" value="PI"/>
     </bean>
 
     <bean id="object" class="org.xml_based.Object_Factory" factory-method="getObject">
