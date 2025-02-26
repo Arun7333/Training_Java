@@ -12,8 +12,13 @@ import org.transaction_practise.Entities.Student;
 @Repository
 public class StudentRepository {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public StudentRepository(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+        System.out.println(jdbcTemplate.getDataSource().getClass());
+    }
 
     public void addStudent(StuData data){
         String stuQuery = "INSERT INTO students VALUES (?, ?, ?);";

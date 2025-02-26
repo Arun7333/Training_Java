@@ -2,9 +2,14 @@ package org.transaction_practise.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.transaction_practise.Datas.Data;
 import org.transaction_practise.Datas.DeptData;
 import org.transaction_practise.Datas.StuData;
@@ -19,6 +24,12 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     @Autowired
+    private TransactionTemplate template;
+
+    @Autowired
+    private PlatformTransactionManager transactionManager;
+
+    @Autowired
     private StudentService self;
 
     @Transactional
@@ -31,18 +42,45 @@ public class StudentService {
         studentRepository.addDepartment(data);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+
     public void addData(StuData stuData, DeptData deptData){
-        self.addDepartment(deptData);
-        self.addStudent(stuData);
+//        template.execute(status -> {
+//            try {
+//                self.addDepartment(deptData);
+//                self.addStudent(stuData);
+//                int a = 10 / 0;
+//                Thread.sleep(6000);
+//                System.out.println("write committed!");
+//            } catch (Exception e) {
+//                status.setRollbackOnly();
+//            }
+//
+//            return 0;
+//        });
+
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+        TransactionStatus status = transactionManager.getTransaction(def);
+
         try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            self.addDepartment(deptData);
+            Object savePoint = status.createSavepoint();
+            try {
+                int a = 10 / 0;
+                self.addStudent(stuData);
+            }
+            catch(Exception e){
+                status.rollbackToSavepoint(savePoint);
+            }
+            System.out.println("write committed!");
+            transactionManager.commit(status);
+        } catch (Exception e) {
+            status.setRollbackOnly();
         }
-        System.out.println("write committed!");
     }
 
+    @Transactional
     public void clearTables(){
         studentRepository.clearTables();
     }
